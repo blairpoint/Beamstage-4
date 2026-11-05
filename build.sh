@@ -1,11 +1,11 @@
 #!/bin/bash
-# Builds Beamstage 4.app (universal: Apple silicon + Intel) with Syphon embedded.
+# Builds Beamstage 7.app (universal: Apple silicon + Intel) with Syphon embedded.
 # Needs only the Xcode Command Line Tools: xcode-select --install
 set -euo pipefail
 cd "$(dirname "$0")"
 
-APP="build/Beamstage 4.app"
-VERSION="4.0.0"
+APP="build/Beamstage 7.app"
+VERSION="7.0.0"
 ARCHS="${ARCHS:-arm64 x86_64}"
 MIN_OS="12.0"
 
@@ -36,9 +36,9 @@ cat > "$APP/Contents/Info.plist" <<PLIST
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-  <key>CFBundleName</key><string>Beamstage 4</string>
-  <key>CFBundleDisplayName</key><string>Beamstage 4</string>
-  <key>CFBundleIdentifier</key><string>app.beamstage.mapper4</string>
+  <key>CFBundleName</key><string>Beamstage 7</string>
+  <key>CFBundleDisplayName</key><string>Beamstage 7</string>
+  <key>CFBundleIdentifier</key><string>app.beamstage.mapper7</string>
   <key>CFBundleExecutable</key><string>Beamstage</string>
   <key>CFBundleIconFile</key><string>AppIcon</string>
   <key>CFBundlePackageType</key><string>APPL</string>
@@ -47,6 +47,7 @@ cat > "$APP/Contents/Info.plist" <<PLIST
   <key>LSMinimumSystemVersion</key><string>$MIN_OS</string>
   <key>LSApplicationCategoryType</key><string>public.app-category.video</string>
   <key>NSHighResolutionCapable</key><true/>
+  <key>NSLocalNetworkUsageDescription</key><string>Beamstage connects to your LaserCube over the local network.</string>
   <key>NSSupportsAutomaticGraphicsSwitching</key><false/>
   <key>NSHumanReadableCopyright</key><string>Syphon is included under its BSD licence.</string>
   <key>UTExportedTypeDeclarations</key>
@@ -87,8 +88,8 @@ echo "Checking…"
 "$APP/Contents/MacOS/Beamstage" --check
 
 if [ "${ZIP:-1}" = "1" ]; then
-  (cd build && rm -f "Beamstage-4-mac.zip" && ditto -c -k --keepParent "Beamstage 4.app" "Beamstage-4-mac.zip")
-  echo "Built $APP and build/Beamstage-4-mac.zip"
+  (cd build && rm -f "Beamstage-7-mac.zip" && ditto -c -k --keepParent "Beamstage 7.app" "Beamstage-7-mac.zip")
+  echo "Built $APP and build/Beamstage-7-mac.zip"
 else
   echo "Built $APP"
 fi
